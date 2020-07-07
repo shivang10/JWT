@@ -11,7 +11,7 @@ const {
     sendAccessToken,
     sendRefreshToken
 } = require('./tokens');
-const { isAuth } = require('./tokens');
+const { isAuth } = require('./isAuth');
 
 //1. Register a user
 //2. Login user
@@ -21,7 +21,7 @@ const { isAuth } = require('./tokens');
 
 const server = express();
 
-//user express middleware for easier cookie handling
+//use express middleware for easier cookie handling
 server.use(cookieParser());
 
 server.use(
@@ -85,7 +85,7 @@ server.post('/login', async (req, res) => {
 
         //4. Put the refreshtoken in the database
         user.refreshtoken = refreshtoken;
-        console.log(fakeDB);
+        //console.log(fakeDB);
 
         //5. Send token. Refreshtoken as a cookie and accesstoken as a regular response
         sendRefreshToken(res, refreshtoken);
@@ -94,7 +94,7 @@ server.post('/login', async (req, res) => {
     }
     catch (err) {
         res.send({
-            error: `$${err.message}`
+            error: `${err.message}`
         })
     }
 });
@@ -112,7 +112,7 @@ server.post('/logout', (_req, res) => {
 server.post('/protected', async (req, res) => {
     try {
         const userId = isAuth(req);
-        if (userId != null) {
+        if (userId !== null) {
             res.send({
                 data: 'This is protected data.'
             })
