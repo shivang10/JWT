@@ -19,8 +19,8 @@ const sendAccessToken = (res, req, accessToken) => {
     })
 }
 
-const sendRefreshToken = (res, refreshtoken) => {
-    res.cookie('refreshtoken', refreshtoken, {
+const sendRefreshToken = (res, token) => {
+    res.cookie('refreshtoken', token, {
         httpOnly: true,
         path: '/refresh_token',
     })
@@ -29,6 +29,6 @@ const sendRefreshToken = (res, refreshtoken) => {
 module.exports = {
     createAccessToken,
     createRefreshToken,
-    sendRefreshToken,
     sendAccessToken,
+    sendRefreshToken
 }

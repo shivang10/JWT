@@ -8,8 +8,8 @@ const { fakeDB } = require('./fakeDB');
 const {
     createAccessToken,
     createRefreshToken,
-    sendAccessToken,
-    sendRefreshToken
+    sendRefreshToken,
+    sendAccessToken
 } = require('./tokens');
 const { isAuth } = require('./isAuth');
 
@@ -147,6 +147,9 @@ server.post('/refresh_token', (req, res) => {
     // Token exist, create new refresh and Accesstoken
     const accesstoken = createAccessToken(user.id);
     const refreshtoken = createRefreshToken(user.id);
+    // update refreshtoken on user in db
+    // Could have different versions instead!
+    user.refreshtoken = refreshtoken;
     //All good to go, send new refreshtoken and accesstoken
     sendRefreshToken(res, refreshtoken);
     return res.send({ accesstoken });

@@ -13,8 +13,8 @@ const Register = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email,
-                password
+                email: email,
+                password: password,
             }),
         })).json();
 
@@ -37,7 +37,7 @@ const Register = () => {
     return (
         <div className="login-wrapper">
             <form onSubmit={handleSubmit}>
-                <h2>Register</h2>
+                <div>Register</div>
                 <div className="login-input">
                     <input
                         value={email}
